@@ -11,6 +11,9 @@ gulp.task("watch", function () {
 gulp.task("build", function () {
     gulp.src(
         [
+            "./src/core/entity.js",
+            "./src/core/boat.js",
+            "./src/core/player.js",
             "./src/core/shipio.js"
         ])
         .pipe(concat("shipio.js"))
