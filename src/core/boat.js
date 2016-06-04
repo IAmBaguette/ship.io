@@ -1,4 +1,5 @@
-var boat = (function (state, boat = {}) {
+var boat = (function (state, boat) {
+    boat = boat || {};
     entity.call(this, state, boat);
     this.movementSpeed = boat.movementSpeed || 0;
     this.rotateSpeed = boat.rotateSpeed || 0;

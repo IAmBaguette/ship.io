@@ -1,4 +1,5 @@
-var entity = (function (state, entity = {}) {
+var entity = (function (state, entity) {
+    entity = entity || {};
     this.state = state;
     this.x = entity.x || 0;
     this.y = entity.y || 0;

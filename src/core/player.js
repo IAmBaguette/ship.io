@@ -1,4 +1,5 @@
-var player = (function (state, player = {}) {
+var player = (function (state, player) {
+    player = player || {};
     boat.call(this, state, player);
     this.input = this.state.input;
 });

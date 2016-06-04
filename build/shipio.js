@@ -1,4 +1,5 @@
-var entity = (function (state, entity = {}) {
+var entity = (function (state, entity) {
+    entity = entity || {};
     this.state = state;
     this.x = entity.x || 0;
     this.y = entity.y || 0;
@@ -10,7 +11,8 @@ var entity = (function (state, entity = {}) {
 entity.prototype.update = function () { };
 
 entity.prototype.draw = function (ctx) { };
-var boat = (function (state, boat = {}) {
+var boat = (function (state, boat) {
+    boat = boat || {};
     entity.call(this, state, boat);
     this.movementSpeed = boat.movementSpeed || 0;
     this.rotateSpeed = boat.rotateSpeed || 0;
@@ -27,7 +29,8 @@ boat.prototype.draw = function (ctx) {
     ctx.fillRect(0, 0, this.width, this.height);
     ctx.restore();
 };
-var player = (function (state, player = {}) {
+var player = (function (state, player) {
+    player = player || {};
     boat.call(this, state, player);
     this.input = this.state.input;
 });
@@ -37,11 +40,12 @@ player.prototype.constructor = player;
 
 player.prototype.update = function () {
     if (this.input.getKey(KeyCode.UpArrow)) {
+        // increase movement speed
         this.x += Math.cos(this.rotation) * this.movementSpeed;
         this.y += Math.sin(this.rotation) * this.movementSpeed;
     }
     if (this.input.getKey(KeyCode.DownArrow)) {
-        // slow down
+        // slow down movement speed
     }
 
     if (this.input.getKey(KeyCode.LeftArrow)) {
