@@ -1,3 +1,10 @@
+function drawText(ctx, x, y, text, height) {
+    var lines = text.split("\n");
+    lines.forEach(function (line) {
+        ctx.fillText(line, x, y);
+        y += height;
+    });
+}
 var input = (function () {
     this.keys = [];
     this.keyPress = [];
@@ -27,7 +34,7 @@ var app = (function (canvas) {
     };
 
     this.remove = function (key) {
-        if (!this.states.hasOwnProperty(key)) {
+        if (this.states.hasOwnProperty(key)) {
             delete this.states.key;
         }
     }
@@ -39,45 +46,41 @@ var app = (function (canvas) {
     this.input = new input();
 
     this.start = function () {
-        if (this.state) {
-            window.onresize = function () {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                
-                self.draw();
-            };
+        window.onresize = function () {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
-            window.onresize();
-            canvas.focus();
+            self.draw();
+        };
 
-            canvas.addEventListener("keydown", function (e) {
-                if (!self.input.keys[e.keyCode]) {
-                    self.input.keyPress[e.keyCode] = true;
-                }
-                self.input.keys[e.keyCode] = true;
+        window.onresize();
+        canvas.focus();
 
-                if (DEBUG_MODE) {
-                    if (self.input.getKeyPress(e.keyCode)) {
-                        var log = "";
-                        for (var attr in Keyboard) {
-                            if (Keyboard[attr] == e.keyCode) {
-                                log += "Keyboard." + attr + ": ";
-                            }
+        canvas.addEventListener("keydown", function (e) {
+            if (!self.input.keys[e.keyCode]) {
+                self.input.keyPress[e.keyCode] = true;
+            }
+            self.input.keys[e.keyCode] = true;
+
+            if (DEBUG_MODE) {
+                if (self.input.getKeyPress(e.keyCode)) {
+                    var log = "";
+                    for (var attr in Keyboard) {
+                        if (Keyboard[attr] == e.keyCode) {
+                            log += "Keyboard." + attr + ": ";
                         }
-                        log += e.keyCode;
-                        console.log(log);
                     }
+                    log += e.keyCode;
+                    console.log(log);
                 }
-            });
+            }
+        });
 
-            canvas.addEventListener("keyup", function (e) {
-                self.input.keys[e.keyCode] = false;
-            });
+        canvas.addEventListener("keyup", function (e) {
+            self.input.keys[e.keyCode] = false;
+        });
 
-            loop();
-        } else {
-            console.error("state is undefined");
-        }
+        loop();
     };
 
     var loop = function () {

@@ -4,5 +4,5 @@ var shipio = (function (stella) {
 
     this.update = function () { };
 
-    this.draw = function () { };
+    this.draw = function (ctx) { };
 });
