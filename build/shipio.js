@@ -31,12 +31,24 @@ boat.prototype.setSpeed = function (options) {
 };
 
 boat.prototype.draw = function (ctx) {
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "white";
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.rotation);
-    ctx.translate(-this.width / 2, -this.height / 2)
-    ctx.fillRect(0, 0, this.width, this.height);
-    ctx.restore();
+    ctx.translate(0, -this.height / 2)
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(this.width - (this.width * 0.33), 0);
+    ctx.lineTo(this.width, this.height / 2);
+    ctx.lineTo(this.width - (this.width * 0.33), this.height);
+    ctx.lineTo(0, this.height);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fill();
+    ctx.restore()
 };
 var player = (function (state, player) {
     player = player || {};
@@ -73,7 +85,7 @@ var shipio = (function (stella) {
     this.input = this.stella.input;
 
     this.grid = new grid({ width: 300, height: 300, blockSize: 45 });
-    this.localPlayer = new player(this, { x: 100, y: 100, width: 100, height: 75 });
+    this.localPlayer = new player(this, { x: 100, y: 100, width: 75, height: 50 });
     this.localPlayer.setSpeed({ forwardSpeed: 0.023, topForwardSpeed: 3, backwardSpeed: 0.01, rotateSpeed: 0.05 })
 });
 
@@ -82,11 +94,11 @@ shipio.prototype.update = function () {
 };
 
 shipio.prototype.draw = function (ctx) {
-    ctx.fillStyle = "white";
     this.grid.draw(ctx);
     this.localPlayer.draw(ctx);
 
     if (DEBUG_MODE) {
+        ctx.fillStyle = "white";
         ctx.font = "18px Calibri";
         ctx.textBaseline = "top";
         var debug_player =

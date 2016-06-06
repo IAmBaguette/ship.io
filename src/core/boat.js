@@ -18,10 +18,22 @@ boat.prototype.setSpeed = function (options) {
 };
 
 boat.prototype.draw = function (ctx) {
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "white";
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.rotation);
-    ctx.translate(-this.width / 2, -this.height / 2)
-    ctx.fillRect(0, 0, this.width, this.height);
-    ctx.restore();
+    ctx.translate(0, -this.height / 2)
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(this.width - (this.width * 0.33), 0);
+    ctx.lineTo(this.width, this.height / 2);
+    ctx.lineTo(this.width - (this.width * 0.33), this.height);
+    ctx.lineTo(0, this.height);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fill();
+    ctx.restore()
 };
