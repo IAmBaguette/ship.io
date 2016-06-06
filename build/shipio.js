@@ -72,7 +72,8 @@ var shipio = (function (stella) {
     this.stella = stella;
     this.input = this.stella.input;
 
-    this.grid = new grid({ width: 300, height: 300, blockSize: 45 });
+    var screenSize = this.stella.getScreenSize();
+    this.grid = new grid({ width: screenSize.width, height: screenSize.height, blockSize: 45 });
     this.localPlayer = new player(this, { x: 100, y: 100, width: 100, height: 75 });
     this.localPlayer.setSpeed({ forwardSpeed: 0.023, topForwardSpeed: 3, backwardSpeed: 0.01, rotateSpeed: 0.05 })
 });
