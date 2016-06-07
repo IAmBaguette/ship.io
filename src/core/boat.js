@@ -17,8 +17,8 @@ boat.prototype.setSpeed = function (options) {
     this.rotateSpeed = options.rotateSpeed || this.rotateSpeed || 0;
 };
 
-boat.prototype.draw = function (ctx) {
-    ctx.fillStyle = "white";
+boat.prototype.draw = function (ctx, xView, yView) {
+  /*  ctx.fillStyle = "white";
     ctx.strokeStyle = "white";
     ctx.save();
     ctx.translate(this.x, this.y);
@@ -35,5 +35,10 @@ boat.prototype.draw = function (ctx) {
     ctx.closePath();
     ctx.stroke();
     ctx.fill();
-    ctx.restore()
+    ctx.restore()*/
+
+    		ctx.save();		
+			ctx.fillStyle = "black";
+			ctx.fillRect((this.x-this.width/2) - xView, (this.y-this.height/2) - yView, this.width, this.height);
+			ctx.restore();			
 };

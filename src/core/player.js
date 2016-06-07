@@ -14,7 +14,7 @@ player.prototype.update = function () {
     }
     if (this.input.getKey(KeyCode.DownArrow)) {
         // slow down movement speed
-       this.currentMovementSpeed = clamp(this.currentMovementSpeed - this.backwardSpeed, 0, this.topForwardSpeed);
+        this.currentMovementSpeed = clamp(this.currentMovementSpeed - this.backwardSpeed, 0, this.topForwardSpeed);
     }
 
     // IMPORTANT: CHANGE ROTATION SPEED ACCORDING TO MOVEMENT SPEED
@@ -27,4 +27,19 @@ player.prototype.update = function () {
 
     this.x += Math.cos(this.rotation) * this.currentMovementSpeed;
     this.y += Math.sin(this.rotation) * this.currentMovementSpeed;
+
+    //World bounds
+    var camera = this.state.camera;
+    if (this.x - this.width < 0) {
+        this.x = this.width;
+    }
+    if (this.y - this.height < 0) {
+        this.y = this.height;
+    }
+    if (this.x + this.width > camera.worldWidth) {
+        this.x = camera.worldWidth - this.width;
+    }
+    if (this.y + this.height > camera.worldHeight) {
+        this.y = camera.worldHeight - this.height;
+    }
 };
